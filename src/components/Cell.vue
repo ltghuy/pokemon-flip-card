@@ -6,8 +6,14 @@
       </div>
       <div class="front">
         <img
-          src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/094_f3.png"
-          alt="pokemon"
+          v-if="this.id < 10"
+          :src="imgPokemon('00', this.id)"
+          :alt="pokemon"
+        />
+        <img
+          v-else-if="this.id < 100"
+          :src="imgPokemon('0', this.id)"
+          :alt="pokemon"
         />
       </div>
     </div>
@@ -19,7 +25,15 @@ export default {
   data() {
     return {
       isFliped: Boolean,
+      imgPokemon: (n, id) =>
+        'https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
+        n +
+        id +
+        '.png',
     }
+  },
+  props: {
+    id: Number,
   },
   methods: {
     handleFlipCard() {
