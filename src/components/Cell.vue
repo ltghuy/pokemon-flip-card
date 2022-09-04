@@ -53,6 +53,7 @@ export default {
   perspective: 30rem;
 
   .content {
+    border-radius: inherit;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -67,6 +68,7 @@ export default {
 
   .front,
   .back {
+    border-radius: inherit;
     position: absolute;
     height: 100%;
     width: 100%;

@@ -52,12 +52,14 @@ export default {
       return {
         height: `${35 / this.totalColumn}rem`,
         width: `${35 / this.totalColumn}rem`,
+        'border-radius': `${2 / this.totalColumn}rem`,
       }
     },
     gridStyles() {
       return {
         'grid-template-rows': 'repeat(' + this.totalColumn + ', 1fr)',
         'grid-template-columns': 'repeat(' + this.totalColumn + ', 1fr)',
+        gap: `${5 / this.totalColumn}rem`,
       }
     },
   },
