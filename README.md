@@ -1,4 +1,4 @@
-# poke-flip-cart
+# Pokemon Flip Card
 
 ## Project setup
 ```
