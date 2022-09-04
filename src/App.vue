@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <welcome-screen
+    v-if="gameStatus === 'default'"
+    @onStart="handleStartGame($event)"
+  />
+  <main-screen
+    v-if="gameStatus === 'playing'"
+    :totalColumn="this.totalColumn"
+  />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import WelcomeScreen from './components/WelcomeScreen.vue'
+import MainScreen from './components/MainScreen.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    HelloWorld,
+    WelcomeScreen,
+    MainScreen,
   },
-};
+  data() {
+    return {
+      gameStatus: 'default',
+      totalColumn: 0,
+    }
+  },
+  methods: {
+    handleStartGame(config) {
+      this.totalColumn = config.totalColumn
+      this.gameStatus = 'playing'
+    },
+  },
+}
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

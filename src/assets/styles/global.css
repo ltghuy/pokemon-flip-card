@@ -1,0 +1,22 @@
+:root {
+  --dark: #112031;
+  --light: #FEFBF3;
+  --gray: #4e4e4e;
+  --yellow: #FFB319;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--dark);
+  color: var(--light);
+  font-size: 16px;
+  font-family: 'Odibee Sans', cursive;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
