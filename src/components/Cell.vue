@@ -86,6 +86,7 @@ export default {
       width: 80%;
       height: 80%;
       object-fit: cover;
+      user-select: none;
     }
   }
 
