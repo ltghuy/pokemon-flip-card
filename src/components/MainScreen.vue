@@ -1,7 +1,7 @@
 <template>
   <div class="main" :style="gridStyles">
     <Cell
-      v-for="cell in duplicateArr(pokemonList)"
+      v-for="cell in fullList"
       :key="cell.data.id"
       :style="cellStyles"
       :id="cell.data.id"
@@ -23,18 +23,19 @@ export default {
   data() {
     return {
       pokemonList: [],
+      fullList: [],
       limit: (this.totalColumn * this.totalColumn) / 2,
+      offset: Math.floor(Math.random() * 100),
     }
   },
   methods: {
     getPokemon() {
       return axios.get(
-        `https://pokeapi.co/api/v2/pokemon?limit=${this.limit}&offset=0`
+        `https://pokeapi.co/api/v2/pokemon?limit=${this.limit}&offset=${this.offset}`
       )
     },
-    duplicateArr(array) {
-      const duplicate = [...array, ...array]
-      return duplicate
+    shuffle() {
+      this.fullList.sort(() => Math.random() - 0.5)
     },
   },
   created() {
@@ -44,6 +45,10 @@ export default {
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         )
         this.pokemonList.push(poke)
+        setTimeout(() => {
+          this.fullList = [...this.pokemonList, poke]
+          this.shuffle()
+        }, 5000)
       })
     })
   },

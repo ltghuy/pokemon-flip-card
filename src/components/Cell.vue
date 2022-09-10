@@ -52,6 +52,10 @@ export default {
   position: relative;
   perspective: 30rem;
 
+  &:hover .back {
+    background-color: #a7d2f766;
+  }
+
   .content {
     border-radius: inherit;
     position: absolute;
@@ -86,6 +90,7 @@ export default {
 
   .back {
     transform: rotateY(-180deg);
+    transition: all 0.3s;
   }
 }
 </style>
