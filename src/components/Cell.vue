@@ -15,6 +15,7 @@
           :src="imgPokemon('0', this.id)"
           :alt="pokemon"
         />
+        <img v-else :src="imgPokemon('', this.id)" :alt="pokemon" />
       </div>
     </div>
   </div>
