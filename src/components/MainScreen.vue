@@ -1,10 +1,12 @@
 <template>
   <div class="main" :style="gridStyles">
     <Cell
-      v-for="cell in fullList"
+      v-for="(cell, index) in pokemonList"
       :key="cell.data.id"
       :style="cellStyles"
-      :id="cell.data.id"
+      :card="{ index, value: cell.data.id }"
+      :ref="`card-${index}`"
+      @onFlip="checkRule($event)"
     />
     <div v-if="loading" class="loading">
       <div class="circle-container">
@@ -36,7 +38,7 @@ export default {
   data() {
     return {
       pokemonList: [],
-      fullList: [],
+      rules: [],
       loading: true,
       limit: (this.totalColumn * this.totalColumn) / 2,
       offset: Math.floor(Math.random() * 100),
@@ -49,7 +51,44 @@ export default {
       )
     },
     shuffle() {
-      this.fullList.sort(() => Math.random() - 0.5)
+      this.pokemonList.sort(() => Math.random() - 0.5)
+    },
+    checkGameOver() {
+      const disabledCard = document.querySelectorAll('.main .cell.disabled')
+      if (disabledCard && disabledCard.length === this.pokemonList.length - 2) {
+        setTimeout(() => {
+          this.$emit('onFinish')
+        }, 1000)
+      }
+    },
+    checkRule(card) {
+      if (this.rules.length === 2) return false
+      this.rules.push(card)
+
+      if (
+        this.rules.length === 2 &&
+        this.rules[0].value === this.rules[1].value
+      ) {
+        // -- Case when 2 card match
+        //Add class 'disabled' to component Cell
+        this.$refs[`card-${this.rules[0].index}`][0].onLockFlip()
+        this.$refs[`card-${this.rules[1].index}`][0].onLockFlip()
+        //Reset rule list
+        this.rules = []
+        //Check game over
+        this.checkGameOver()
+      } else if (
+        this.rules.length === 2 &&
+        this.rules[0].value !== this.rules[1].value
+      ) {
+        // -- Case when 2 card do not match
+        setTimeout(() => {
+          this.$refs[`card-${this.rules[0].index}`][0].onFlipBackCard()
+          this.$refs[`card-${this.rules[1].index}`][0].onFlipBackCard()
+          //Reset rule list
+          this.rules = []
+        }, 1000)
+      } else return false
     },
   },
   created() {
@@ -58,12 +97,12 @@ export default {
         const poke = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         )
+        this.shuffle()
         this.pokemonList.push(poke)
         setTimeout(() => {
-          this.fullList = [...this.pokemonList, poke]
-          this.shuffle()
+          this.pokemonList.push(poke)
           this.loading = false
-        }, 10000)
+        }, 8000)
       })
     })
   },
@@ -130,6 +169,7 @@ export default {
   display: grid;
 
   .loading {
+    background-color: var(--dark);
     position: fixed;
     top: 0;
     left: 0;

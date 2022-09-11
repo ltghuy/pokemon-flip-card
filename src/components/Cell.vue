@@ -1,21 +1,21 @@
 <template>
-  <div class="cell" @click="handleFlipCard">
+  <div class="cell" :class="{ disabled: isDisabled }" @click="handleFlipCard">
     <div class="content" :class="{ flip: isFliped }">
       <div class="back">
         <img src="/images/pokeball.png" alt="pokeball" />
       </div>
       <div class="front">
         <img
-          v-if="this.id < 10"
-          :src="imgPokemon('00', this.id)"
+          v-if="this.card.value < 10"
+          :src="imgPokemon('00', this.card.value)"
           :alt="pokemon"
         />
         <img
-          v-else-if="this.id < 100"
-          :src="imgPokemon('0', this.id)"
+          v-else-if="this.card.value < 100"
+          :src="imgPokemon('0', this.card.value)"
           :alt="pokemon"
         />
-        <img v-else :src="imgPokemon('', this.id)" :alt="pokemon" />
+        <img v-else :src="imgPokemon('', this.card.value)" :alt="pokemon" />
       </div>
     </div>
   </div>
@@ -25,7 +25,8 @@
 export default {
   data() {
     return {
-      isFliped: Boolean,
+      isFliped: false,
+      isDisabled: false,
       imgPokemon: (n, id) =>
         'https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
         n +
@@ -34,11 +35,21 @@ export default {
     }
   },
   props: {
-    id: Number,
+    card: Object,
   },
   methods: {
     handleFlipCard() {
+      if (this.isDisabled) return false
       this.isFliped = !this.isFliped
+      if (this.isFliped) {
+        this.$emit('onFlip', this.card)
+      }
+    },
+    onFlipBackCard() {
+      this.isFliped = false
+    },
+    onLockFlip() {
+      this.isDisabled = true
     },
   },
 }
@@ -53,8 +64,15 @@ export default {
   position: relative;
   perspective: 30rem;
 
-  &:hover .back {
-    background-color: #a7d2f766;
+  &.disabled {
+    cursor: default;
+    border: 1px solid var(--blue);
+  }
+
+  &:hover {
+    .back {
+      background-color: #a7d2f766;
+    }
   }
 
   .content {
@@ -65,9 +83,10 @@ export default {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     transition: transform 1s;
     transform-style: preserve-3d;
+    transition: transform 0.5s;
+    transform: rotateY(-180deg);
     &.flip {
-      transform: rotateY(-180deg);
-      transition: transform 0.5s;
+      transform: rotateY(0deg);
     }
   }
 
