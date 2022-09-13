@@ -36,10 +36,12 @@ export default {
   },
   props: {
     card: Object,
+    rules: Array,
   },
   methods: {
     handleFlipCard() {
-      if (this.isDisabled) return false
+      if (this.rules.length >= 2) return
+      if (this.isDisabled) return
       this.isFliped = !this.isFliped
       if (this.isFliped) {
         this.$emit('onFlip', this.card)
@@ -96,7 +98,7 @@ export default {
     position: absolute;
     height: 100%;
     width: 100%;
-    background: var(--dark);
+    background: transparent;
     backface-visibility: hidden;
     display: flex;
     justify-content: center;
@@ -105,7 +107,6 @@ export default {
       width: 80%;
       height: 80%;
       object-fit: cover;
-      user-select: none;
     }
   }
 

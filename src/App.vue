@@ -7,6 +7,7 @@
     v-if="gameStatus === 'playing'"
     :totalColumn="this.totalColumn"
     @onFinish="onGetResult"
+    @onTimeOver="onRestart"
   />
   <result-screen
     v-if="gameStatus === 'result'"

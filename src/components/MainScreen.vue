@@ -5,6 +5,7 @@
       :key="cell.data.id"
       :style="cellStyles"
       :card="{ index, value: cell.data.id }"
+      :rules="rules"
       :ref="`card-${index}`"
       @onFlip="checkRule($event)"
     />
@@ -21,16 +22,19 @@
         <img class="type" src="/images/water.png" alt="water" />
       </div>
     </div>
+    <Timer v-else @onTimeOver="checkTimeOver" />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Cell from './Cell.vue'
+import Timer from './Timer.vue'
 
 export default {
   components: {
     Cell,
+    Timer,
   },
   props: {
     totalColumn: Number,
@@ -65,6 +69,9 @@ export default {
       if (this.rules.length === 2) return false
       this.rules.push(card)
 
+      if (this.rules[0].index === this.rules[1].index) {
+        this.rules = []
+      }
       if (
         this.rules.length === 2 &&
         this.rules[0].value === this.rules[1].value
@@ -90,6 +97,9 @@ export default {
         }, 1000)
       } else return false
     },
+    checkTimeOver() {
+      this.$emit('onTimeOver')
+    },
   },
   created() {
     this.getPokemon().then((res) => {
@@ -102,7 +112,7 @@ export default {
         setTimeout(() => {
           this.pokemonList.push(poke)
           this.loading = false
-        }, 8000)
+        }, 4000)
       })
     })
   },
@@ -169,7 +179,7 @@ export default {
   display: grid;
 
   .loading {
-    background-color: var(--dark);
+    background: var(--bg);
     position: fixed;
     top: 0;
     left: 0;
