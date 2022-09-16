@@ -1,6 +1,6 @@
 <template>
   <div class="cell" :class="{ disabled: isDisabled }" @click="handleFlipCard">
-    <div class="content" :class="{ flip: isFliped }">
+    <div class="content" :class="{ flip: isFliped, suggest: this.suggest }">
       <div class="back">
         <img src="/images/pokeball.png" alt="pokeball" />
       </div>
@@ -37,6 +37,7 @@ export default {
   props: {
     card: Object,
     rules: Array,
+    suggest: Boolean,
   },
   methods: {
     handleFlipCard() {
@@ -88,6 +89,9 @@ export default {
     transition: transform 0.5s;
     transform: rotateY(-180deg);
     &.flip {
+      transform: rotateY(0deg);
+    }
+    &.suggest {
       transform: rotateY(0deg);
     }
   }

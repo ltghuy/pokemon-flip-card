@@ -6,6 +6,7 @@
       :style="cellStyles"
       :card="{ index, value: cell.data.id }"
       :rules="rules"
+      :suggest="this.suggestion.status"
       :ref="`card-${index}`"
       @onFlip="checkRule($event)"
     />
@@ -22,7 +23,8 @@
         <img class="type" src="/images/water.png" alt="water" />
       </div>
     </div>
-    <Timer v-else @onTimeOver="checkTimeOver" />
+    <Timer v-else @onTimeOver="checkTimeOver" :times="this.totalColumn" />
+    <Suggest :suggest="this.suggestion" @onSuggest="handleSuggest" />
   </div>
 </template>
 
@@ -30,10 +32,12 @@
 import axios from 'axios'
 import Cell from './Cell.vue'
 import Timer from './Timer.vue'
+import Suggest from './Suggest.vue'
 
 export default {
   components: {
     Cell,
+    Suggest,
     Timer,
   },
   props: {
@@ -46,6 +50,11 @@ export default {
       loading: true,
       limit: (this.totalColumn * this.totalColumn) / 2,
       offset: Math.floor(Math.random() * 100),
+      suggestion: {
+        times: 3,
+        status: false,
+        disabled: false,
+      },
     }
   },
   methods: {
@@ -99,6 +108,17 @@ export default {
     },
     checkTimeOver() {
       this.$emit('onTimeOver')
+    },
+    handleSuggest() {
+      if (this.suggestion.times === 0) {
+        this.suggestion.disabled = true
+        return
+      }
+      this.suggestion.times--
+      this.suggestion.status = true
+      setTimeout(() => {
+        this.suggestion.status = false
+      }, 2000)
     },
   },
   created() {
@@ -188,6 +208,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 
     .circle-container {
       @include on-circle($item-count: 9, $circle-size: 20em, $item-size: 4em);

@@ -9,10 +9,13 @@
 
 <script>
 export default {
+  props: {
+    times: Number,
+  },
   data() {
     return {
-      duration: 300,
-      currentTimer: 300,
+      duration: this.times * 60,
+      currentTimer: this.times * 60,
     }
   },
   methods: {
