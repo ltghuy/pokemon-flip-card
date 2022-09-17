@@ -1,7 +1,9 @@
 <template>
   <div class="result">
     <h1 class="text">✨Congratulations✨</h1>
-    <h3 class="timer">{{ Math.round(timer / 920) }} seconds</h3>
+    <h3 class="timer">
+      {{ `${this.minutes} : ${this.seconds} s` }}
+    </h3>
     <button class="button" @click="handleRestart">Start again</button>
   </div>
 </template>
@@ -13,6 +15,12 @@ export default {
       type: Number,
       default: 0,
     },
+  },
+  data: function () {
+    return {
+      minutes: Math.floor(this.timer / 920 / 60),
+      seconds: Math.floor((this.timer / 920) % 60),
+    }
   },
   methods: {
     handleRestart() {

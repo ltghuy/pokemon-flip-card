@@ -5,7 +5,7 @@
   --yellow: #FFB319;
   --blue: #3982b6;
   --white: #fff;
-  --bg: linear-gradient( 102deg, rgb(17 2 34) 44.2%, rgb(40 0 53) 100.2% );
+  --bg: radial-gradient( circle 580px at 5.2% 57.6%,  rgb(23 4 64) 0%, rgb(8 6 27) 92.5% );
 }
 
 * {

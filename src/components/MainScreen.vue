@@ -49,7 +49,7 @@ export default {
       rules: [],
       loading: true,
       limit: (this.totalColumn * this.totalColumn) / 2,
-      offset: Math.floor(Math.random() * 100),
+      offset: Math.floor(Math.random() * 849), //the total number of pokemon is 889, max limit is 50
       suggestion: {
         times: 3,
         status: false,
