@@ -35,9 +35,10 @@ export default {
 
 <style scoped lang="scss">
 .suggest {
-  position: fixed;
-  top: 10%;
-  right: 10%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(200%);
   button {
     cursor: pointer;
     color: var(--white);

@@ -197,6 +197,7 @@ export default {
 
 .main {
   display: grid;
+  position: relative;
 
   .loading {
     background: var(--bg);

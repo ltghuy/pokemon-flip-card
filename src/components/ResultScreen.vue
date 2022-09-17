@@ -1,10 +1,10 @@
 <template>
   <div class="result">
-    <h1 class="text">✨Congratulations✨</h1>
+    <h1 class="text">✨You won!✨</h1>
     <h3 class="timer">
       {{ `${this.minutes} : ${this.seconds} s` }}
     </h3>
-    <button class="button" @click="handleRestart">Start again</button>
+    <button class="button" @click="handleRestart">Play again</button>
   </div>
 </template>
 

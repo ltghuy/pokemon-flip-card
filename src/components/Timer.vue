@@ -20,15 +20,15 @@ export default {
   },
   methods: {
     countDownTimer() {
-      if (this.currentTimer > 0) {
-        setTimeout(() => {
-          this.currentTimer -= 1
-          this.countDownTimer()
-        }, 1000)
-      } else {
+      if (this.currentTimer === 0) {
         setTimeout(() => {
           alert('Time Over !!!')
           this.$emit('onTimeOver')
+        }, 1000)
+      } else {
+        setTimeout(() => {
+          this.currentTimer -= 1
+          this.countDownTimer()
         }, 1000)
       }
     },
