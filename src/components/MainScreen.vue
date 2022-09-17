@@ -118,7 +118,7 @@ export default {
       this.suggestion.status = true
       setTimeout(() => {
         this.suggestion.status = false
-      }, 2000)
+      }, 3000)
     },
   },
   created() {

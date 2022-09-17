@@ -1,25 +1,28 @@
 <template>
   <div class="welcome">
-    <h1>Poke Memories</h1>
-    <h3>Select mode to start game</h3>
-    <div class="options">
-      <button @click="onStart(4)">
-        <span>4 x 4</span>
-        Easy
-      </button>
-      <button @click="onStart(6)">
-        <span>6 x 6</span>
-        Normal
-      </button>
-      <button @click="onStart(8)">
-        <span>8 x 8</span>
-        Hard
-      </button>
-      <button @click="onStart(10)">
-        <span>10 x 10</span>
-        Super Hard
-      </button>
+    <div class="wrapper">
+      <h1>Poke Memories</h1>
+      <h3>Select mode to start game</h3>
+      <div class="options">
+        <button @click="onStart(4)">
+          <span>4 x 4</span>
+          Easy
+        </button>
+        <button @click="onStart(6)">
+          <span>6 x 6</span>
+          Normal
+        </button>
+        <button @click="onStart(8)">
+          <span>8 x 8</span>
+          Hard
+        </button>
+        <button @click="onStart(10)">
+          <span>10 x 10</span>
+          Super Hard
+        </button>
+      </div>
     </div>
+    <div class="dim"></div>
   </div>
 </template>
 
@@ -37,17 +40,22 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/breakpoints.scss' as *;
 .welcome {
+  background: url('../../public/images/pokemon-bg.jpg') center/cover;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
+  .wrapper {
+    text-align: center;
+    z-index: 2;
+  }
   h1 {
     color: var(--yellow);
     text-transform: uppercase;
     font-size: 4rem;
-    text-align: center;
     margin-bottom: 1rem;
   }
   h3 {
@@ -81,6 +89,14 @@ export default {
         background-color: var(--light);
       }
     }
+  }
+  .dim {
+    background-color: rgb(0 0 0 / 65%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
   @media screen and (max-width: $sm) {
     h1 {
