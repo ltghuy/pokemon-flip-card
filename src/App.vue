@@ -21,7 +21,6 @@
         class="ionicon"
         viewBox="0 0 512 512"
       >
-        <title>Musical Notes</title>
         <path
           d="M192 218v-6c0-14.84 10-27 24.24-30.59l174.59-46.68A20 20 0 01416 154v22"
           fill="none"
