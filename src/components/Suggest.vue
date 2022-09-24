@@ -67,13 +67,14 @@ export default {
       user-select: none;
     }
   }
-  @media screen and (max-width: $sm) {
+  @media screen and (max-width: $lg) {
     position: fixed;
-    left: 50%;
-    bottom: 50px;
     right: unset;
     top: unset;
-    transform: translateX(-50%);
+    bottom: 20px;
+    left: 20px;
+    transform: translateX(0px);
+    background: #c0c0c03d;
   }
 }
 </style>

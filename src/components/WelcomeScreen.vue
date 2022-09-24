@@ -98,8 +98,22 @@ export default {
     right: 0;
     bottom: 0;
   }
-  @media screen and (max-width: $sm) {
+
+  @media screen and (max-width: $lg) {
+    background: url('../../public/images/pokemon-bg-tablet.jpg') center/cover;
+  }
+
+  @media screen and (max-width: $md) {
     background: url('../../public/images/pokemon-bg-mobile.jpg') center/cover;
+    .options {
+      button {
+        width: 8rem;
+        height: 8rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: $sm) {
     h1 {
       font-size: 3rem;
     }
@@ -107,8 +121,9 @@ export default {
       font-size: 1.5rem;
     }
     .options button {
-      width: 8rem;
-      height: 8rem;
+      width: 7rem;
+      height: 7rem;
+      font-size: 1rem;
     }
   }
 }

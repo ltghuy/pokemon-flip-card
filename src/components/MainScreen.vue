@@ -120,16 +120,25 @@ export default {
         this.suggestion.status = false
       }, 3000)
     },
-    isMobile() {
+    deviceType() {
+      const ua = navigator.userAgent
+      //iPad Pro
       if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 0) ||
+        navigator.platform === 'iPad'
+      ) {
+        return 'tablet'
+      }
+      if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+        return 'tablet'
+      } else if (
+        /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+          ua
         )
       ) {
-        return true
-      } else {
-        return false
+        return 'mobile'
       }
+      return 'desktop'
     },
   },
   created() {
@@ -149,10 +158,17 @@ export default {
   },
   computed: {
     cellStyles() {
-      if (!this.isMobile()) {
+      if (this.deviceType() === 'desktop') {
         return {
           height: `${35 / this.totalColumn}rem`,
           width: `${35 / this.totalColumn}rem`,
+          'border-radius': `${2 / this.totalColumn}rem`,
+        }
+      }
+      if (this.deviceType() === 'tablet') {
+        return {
+          height: `${40 / this.totalColumn}rem`,
+          width: `${40 / this.totalColumn}rem`,
           'border-radius': `${2 / this.totalColumn}rem`,
         }
       } else {
@@ -164,11 +180,18 @@ export default {
       }
     },
     gridStyles() {
-      if (!this.isMobile()) {
+      if (this.deviceType() === 'desktop') {
         return {
           'grid-template-rows': 'repeat(' + this.totalColumn + ', 1fr)',
           'grid-template-columns': 'repeat(' + this.totalColumn + ', 1fr)',
           gap: `${5 / this.totalColumn}rem`,
+        }
+      }
+      if (this.deviceType() === 'tablet') {
+        return {
+          'grid-template-rows': 'repeat(' + this.totalColumn + ', 1fr)',
+          'grid-template-columns': 'repeat(' + this.totalColumn + ', 1fr)',
+          gap: `${6 / this.totalColumn}rem`,
         }
       } else {
         return {
@@ -255,7 +278,6 @@ export default {
     }
   }
   @media screen and (max-width: $sm) {
-    // gap: unset !important;
     .loading {
       .circle-container {
         @include on-circle($item-count: 9, $circle-size: 10em, $item-size: 2em);

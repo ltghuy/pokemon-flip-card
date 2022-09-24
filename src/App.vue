@@ -76,6 +76,7 @@ export default {
     },
     onRestart() {
       this.gameStatus = 'default'
+      this.startedAt = null
     },
     triggerAudio() {
       const audio = document.getElementById('audio')
