@@ -99,6 +99,7 @@ export default {
     bottom: 0;
   }
   @media screen and (max-width: $sm) {
+    background: url('../../public/images/pokemon-bg-mobile.jpg') center/cover;
     h1 {
       font-size: 3rem;
     }

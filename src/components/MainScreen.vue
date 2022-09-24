@@ -120,6 +120,17 @@ export default {
         this.suggestion.status = false
       }, 3000)
     },
+    isMobile() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true
+      } else {
+        return false
+      }
+    },
   },
   created() {
     this.getPokemon().then((res) => {
@@ -138,17 +149,33 @@ export default {
   },
   computed: {
     cellStyles() {
-      return {
-        height: `${35 / this.totalColumn}rem`,
-        width: `${35 / this.totalColumn}rem`,
-        'border-radius': `${2 / this.totalColumn}rem`,
+      if (!this.isMobile()) {
+        return {
+          height: `${35 / this.totalColumn}rem`,
+          width: `${35 / this.totalColumn}rem`,
+          'border-radius': `${2 / this.totalColumn}rem`,
+        }
+      } else {
+        return {
+          height: `${20 / this.totalColumn}rem`,
+          width: `${20 / this.totalColumn}rem`,
+          'border-radius': `${2 / this.totalColumn}rem`,
+        }
       }
     },
     gridStyles() {
-      return {
-        'grid-template-rows': 'repeat(' + this.totalColumn + ', 1fr)',
-        'grid-template-columns': 'repeat(' + this.totalColumn + ', 1fr)',
-        gap: `${5 / this.totalColumn}rem`,
+      if (!this.isMobile()) {
+        return {
+          'grid-template-rows': 'repeat(' + this.totalColumn + ', 1fr)',
+          'grid-template-columns': 'repeat(' + this.totalColumn + ', 1fr)',
+          gap: `${5 / this.totalColumn}rem`,
+        }
+      } else {
+        return {
+          'grid-template-rows': 'repeat(' + this.totalColumn + ', 1fr)',
+          'grid-template-columns': 'repeat(' + this.totalColumn + ', 1fr)',
+          gap: `${2 / this.totalColumn}rem`,
+        }
       }
     },
   },
@@ -156,6 +183,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '../assets/styles/breakpoints.scss' as *;
 @mixin on-circle($item-count, $circle-size, $item-size) {
   position: relative;
   width: $circle-size;
@@ -218,7 +246,19 @@ export default {
         display: block;
         max-width: 100%;
         filter: drop-shadow(0px 0px 10px rgb(225, 225, 225));
+        -webkit-filter: drop-shadow(0px 0px 10px rgb(225, 225, 225));
+        -moz-filter: drop-shadow(0px 0px 10px rgb(225, 225, 225));
+        -ms-filter: drop-shadow(0px 0px 10px rgb(225, 225, 225));
+        -o-filter: drop-shadow(0px 0px 10px rgb(225, 225, 225));
         user-select: none;
+      }
+    }
+  }
+  @media screen and (max-width: $sm) {
+    // gap: unset !important;
+    .loading {
+      .circle-container {
+        @include on-circle($item-count: 9, $circle-size: 10em, $item-size: 2em);
       }
     }
   }

@@ -34,6 +34,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '../assets/styles/breakpoints.scss' as *;
 .suggest {
   position: absolute;
   top: 0;
@@ -65,6 +66,14 @@ export default {
       pointer-events: none;
       user-select: none;
     }
+  }
+  @media screen and (max-width: $sm) {
+    position: fixed;
+    left: 50%;
+    bottom: 50px;
+    right: unset;
+    top: unset;
+    transform: translateX(-50%);
   }
 }
 </style>
