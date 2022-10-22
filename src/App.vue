@@ -67,7 +67,7 @@ export default {
       startedAt: null,
       timer: 0,
       sound: false,
-      collection: 1,
+      collection: 800,
     }
   },
   methods: {

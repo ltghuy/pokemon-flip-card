@@ -6,102 +6,34 @@
     @click.self="closeCollection"
   >
     <div class="cards">
-      <div class="card grass">
+      <div
+        class="card"
+        :class="pokemon.data.types[0].type.name"
+        v-for="pokemon in pokemonCollection"
+        :key="pokemon.data.id"
+      >
         <div class="wrapper">
           <img
-            src="https://i0.wp.com/yumetwinsblog.wpcomstaging.com/wp-content/uploads/2021/12/bb4bccb5-7a06-4b30-be9d-5ea3f461873e_3.png?w=620&ssl=1"
-            alt="pokemon"
+            v-if="pokemon.data.id < 10"
+            :src="imgPokemon('00', pokemon.data.id)"
+            :alt="pokemon.data.name"
           />
-          <div class="description">
-            {{ collection }}
-          </div>
-        </div>
-      </div>
-      <div class="card electric">
-        <div class="wrapper">
           <img
-            src="https://freepngimg.com/thumb/pokemon/20346-7-pokemon-hd.png"
-            alt="pokemon"
+            v-else-if="pokemon.data.id < 100"
+            :src="imgPokemon('0', pokemon.data.id)"
+            :alt="pokemon.data.name"
           />
-          <div class="description">
-            {{ collection }}
-          </div>
-        </div>
-      </div>
-      <div class="card fire">
-        <div class="wrapper">
           <img
-            src="https://i.pinimg.com/originals/f2/95/76/f295769d9bd3c34ffc552e837f5304ae.png"
-            alt="pokemon"
+            v-else
+            :src="imgPokemon('', pokemon.data.id)"
+            :alt="pokemon.data.name"
           />
           <div class="description">
-            {{ collection }}
-          </div>
-        </div>
-      </div>
-      <div class="card water">
-        <div class="wrapper">
-          <img
-            src="https://assets.webiconspng.com/uploads/2017/09/Pokemon-PNG-Image-48368.png"
-            alt="pokemon"
-          />
-          <div class="description">
-            {{ collection }}
-          </div>
-        </div>
-      </div>
-      <div class="card dark">
-        <div class="wrapper">
-          <img
-            src="https://static.pokemonpets.com/images/monsters-images-800-800/94-Gengar.png"
-            alt="pokemon"
-          />
-          <div class="description">
-            {{ collection }}
-          </div>
-        </div>
-      </div>
-      <div class="card fairy">
-        <div class="wrapper">
-          <img
-            src="https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-x-y-version/2/2c/Vivillon_official_art_transparent_background.png?width=1280"
-            alt="pokemon"
-          />
-          <div class="description">
-            {{ collection }}
-          </div>
-        </div>
-      </div>
-      <div class="card normal">
-        <div class="wrapper">
-          <img
-            src="https://qph.cf2.quoracdn.net/main-qimg-f035080bc60124c8a64ef1a84b58aa95"
-            alt="pokemon"
-          />
-          <div class="description">
-            {{ collection }}
-          </div>
-        </div>
-      </div>
-      <div class="card ice">
-        <div class="wrapper">
-          <img
-            src="https://cdn.shortpixel.ai/spai/w_381+q_lossy+ret_img+to_webp/https://pokeweakness.com/images/1892690-144articuno.png"
-            alt="pokemon"
-          />
-          <div class="description">
-            {{ collection }}
-          </div>
-        </div>
-      </div>
-      <div class="card psychic">
-        <div class="wrapper">
-          <img
-            src="https://www.gamerguides.com/assets/media/11/151/151-3.png"
-            alt="pokemon"
-          />
-          <div class="description">
-            {{ collection }}
+            <h3 class="name">{{ pokemon.data.name }}</h3>
+            <p class="type">
+              Type: <span>{{ pokemon.data.types[0].type.name }}</span>
+            </p>
+            <strong class="numID">{{ `#${pokemon.data.id}` }}</strong>
           </div>
         </div>
       </div>
@@ -110,6 +42,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   props: {
     collection: Number,
@@ -117,15 +50,36 @@ export default {
   data() {
     return {
       showCollection: false,
+      pokemonCollection: [],
+      imgPokemon: (n, id) =>
+        'https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
+        n +
+        id +
+        '.png',
     }
   },
   methods: {
+    getCollection() {
+      return axios.get(
+        `https://pokeapi.co/api/v2/pokemon?limit=${this.collection}`
+      )
+    },
     openCollection() {
       this.showCollection = true
     },
     closeCollection() {
       this.showCollection = false
     },
+  },
+  created() {
+    this.getCollection().then((res) => {
+      res.data.results.forEach(async (pokemon) => {
+        const poke = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+        )
+        this.pokemonCollection.push(poke)
+      })
+    })
   },
 }
 </script>
@@ -157,7 +111,7 @@ export default {
   right: 0;
   z-index: 2;
   .cards {
-    animation: zoomIn 0.5s cubic-bezier(0, 0.0015, 0.55, 0.35);
+    animation: zoomIn 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
     background-color: var(--white);
     border-radius: 1.2rem;
     box-shadow: 0px 0px 15px 10px #fcfcfc4f;
@@ -203,7 +157,7 @@ export default {
     img {
       border-top-left-radius: 0.5rem;
       border-top-right-radius: 0.5rem;
-      height: 40%;
+      height: 45%;
       flex-shrink: 0;
       filter: drop-shadow(6px 2px 10px white);
       object-fit: cover;
@@ -211,6 +165,35 @@ export default {
     }
     .description {
       flex: 1;
+      width: 100%;
+      margin-top: 1rem;
+      text-align: center;
+      text-transform: capitalize;
+      background-color: #ffffff80;
+      border-top-left-radius: 10rem;
+      border-top-right-radius: 10rem;
+      .name {
+        color: var(--dark);
+        font-size: 2.5rem;
+        padding: 1.5rem 0rem 1rem;
+      }
+      .type {
+        color: var(--dark);
+        font-size: 1.2rem;
+        span {
+          margin-left: 0.5rem;
+          padding: 0.2rem 1.2rem;
+          background-color: var(--dark);
+          border-radius: 10rem;
+          color: var(--white);
+        }
+      }
+      .numID {
+        color: var(--dark);
+        display: block;
+        font-size: 1.2rem;
+        margin-top: 2rem;
+      }
     }
   }
 }
@@ -221,8 +204,8 @@ export default {
     opacity: 0;
   }
   to {
-    width: 80%;
-    height: 80%;
+    width: 75%;
+    height: 65%;
     opacity: 1;
   }
 }

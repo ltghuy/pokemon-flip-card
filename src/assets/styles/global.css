@@ -50,7 +50,13 @@ body {
   background: -webkit-linear-gradient(to bottom, #A7D1FF, #2D8DEF, #002EA1);
   background: linear-gradient(to bottom, #A7D1FF, #2D8DEF, #002EA1);
 }
-.dark {
+.dark,
+.ghost {
+  background: #25004B;
+  background: -webkit-linear-gradient(to right, #A36DC8, #272773, #25004B);
+  background: linear-gradient(to right, #A36DC8, #272773, #25004B);
+}
+.poison {
   background: #160528;
   background: -webkit-linear-gradient(to bottom, #EED5FF, #976FB6, #160528);
   background: linear-gradient(to bottom, #EED5FF, #976FB6, #160528);
@@ -60,13 +66,35 @@ body {
   background: -webkit-linear-gradient(to bottom, #EFD4DA, #FF8EC2, #B12060);
   background: linear-gradient(to bottom, #EFD4DA, #FF8EC2, #B12060);
 }
-.normal {
+.normal,
+.fighting,
+.steel {
+  background: #000000;
+  background: -webkit-linear-gradient(to bottom, #E2E2E2, #CECECE, #000000);
+  background: linear-gradient(to bottom, #E2E2E2, #CECECE, #000000);
+}
+.rock {
+  background: #528D63;
+  background: -webkit-linear-gradient(to bottom, #EAEAEA, #678B87, #528D63);
+  background: linear-gradient(to bottom, #EAEAEA, #678B87, #528D63);
+}
+.ground {
   background: #7F5414;
   background: -webkit-linear-gradient(to bottom, #FFF5DB, #D7AA72, #7F5414);
   background: linear-gradient(to bottom, #FFF5DB, #D7AA72, #7F5414);
+}
+.bug {
+  background: #2EE500;
+  background: -webkit-linear-gradient(to bottom, #FFFB3A, #32C67B, #2EE500);
+  background: linear-gradient(to bottom, #FFFB3A, #32C67B, #2EE500);
 }
 .psychic {
   background: #A92752;
   background: -webkit-linear-gradient(to bottom, #FBCAE0, #EE9F6A, #A92752);
   background: linear-gradient(to bottom, #FBCAE0, #EE9F6A, #A92752);
+}
+.dragon {
+  background: #006CBE;
+  background: -webkit-linear-gradient(to bottom, #F5D867, #32ECF5, #006CBE);
+  background: linear-gradient(to bottom, #F5D867, #32ECF5, #006CBE);
 }
