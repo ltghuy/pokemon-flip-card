@@ -2,6 +2,7 @@
   --dark: #112031;
   --light: #FEFBF3;
   --gray: #4e4e4e;
+  --ligh-gray: #f0f0f0;
   --yellow: #FFB319;
   --blue: #3982b6;
   --white: #fff;
@@ -22,4 +23,50 @@ body {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+}
+
+.grass {
+  background: #1EE628C4;
+  background: -webkit-linear-gradient(to bottom, #DAF61575, #1EE628C4);
+  background: linear-gradient(to bottom, #DAF61575, #1EE628C4);
+}
+.electric {
+  background: #E5AC0D;
+  background: -webkit-linear-gradient(to bottom, #F1EF9E, #E5AC0D);
+  background: linear-gradient(to bottom, #F1EF9E, #E5AC0D);
+}
+.fire {
+  background: #DE2138;
+  background: -webkit-linear-gradient(to bottom, #F4B645, #DE2138);
+  background: linear-gradient(to bottom, #F4B645, #DE2138);
+}
+.water {
+  background: #0066CE;
+  background: -webkit-linear-gradient(to bottom, #B3EBFF, #0066CE);
+  background: linear-gradient(to bottom, #B3EBFF, #0066CE);
+}
+.ice {
+  background: #002EA1;
+  background: -webkit-linear-gradient(to bottom, #A7D1FF, #2D8DEF, #002EA1);
+  background: linear-gradient(to bottom, #A7D1FF, #2D8DEF, #002EA1);
+}
+.dark {
+  background: #160528;
+  background: -webkit-linear-gradient(to bottom, #EED5FF, #976FB6, #160528);
+  background: linear-gradient(to bottom, #EED5FF, #976FB6, #160528);
+}
+.fairy {
+  background: #B12060;
+  background: -webkit-linear-gradient(to bottom, #EFD4DA, #FF8EC2, #B12060);
+  background: linear-gradient(to bottom, #EFD4DA, #FF8EC2, #B12060);
+}
+.normal {
+  background: #7F5414;
+  background: -webkit-linear-gradient(to bottom, #FFF5DB, #D7AA72, #7F5414);
+  background: linear-gradient(to bottom, #FFF5DB, #D7AA72, #7F5414);
+}
+.psychic {
+  background: #A92752;
+  background: -webkit-linear-gradient(to bottom, #FBCAE0, #EE9F6A, #A92752);
+  background: linear-gradient(to bottom, #FBCAE0, #EE9F6A, #A92752);
 }
