@@ -44,11 +44,9 @@
 <script>
 import axios from 'axios'
 export default {
-  props: {
-    collection: Number,
-  },
   data() {
     return {
+      collection: localStorage.getItem('pokemonCollection'),
       showCollection: false,
       pokemonCollection: [],
       imgPokemon: (n, id) =>
@@ -77,7 +75,9 @@ export default {
         const poke = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         )
-        this.pokemonCollection.push(poke)
+        setTimeout(() => {
+          this.pokemonCollection.push(poke)
+        }, 3000)
       })
     })
   },

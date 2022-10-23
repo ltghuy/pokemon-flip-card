@@ -24,6 +24,8 @@ export default {
   },
   methods: {
     handleRestart() {
+      const collection = localStorage.getItem('pokemonCollection')
+      localStorage.setItem('pokemonCollection', Number(collection) + 1)
       this.$emit('onRestart')
     },
   },

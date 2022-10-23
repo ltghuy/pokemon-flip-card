@@ -15,7 +15,7 @@
     :timer="this.timer"
   />
   <div class="features">
-    <gallery :collection="this.collection" />
+    <gallery />
     <div class="music">
       <button @click="triggerAudio" :class="{ playing: sound }">
         <svg
@@ -67,7 +67,6 @@ export default {
       startedAt: null,
       timer: 0,
       sound: false,
-      collection: 800,
     }
   },
   methods: {
@@ -95,6 +94,11 @@ export default {
       }
     },
   },
+  beforeMount() {
+    if (localStorage.getItem('pokemonCollection') === null) {
+      localStorage.setItem('pokemonCollection', 1)
+    }
+  },
 }
 </script>
 
@@ -108,8 +112,8 @@ export default {
   position: relative;
   .features {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 40px;
+    right: 40px;
     display: flex;
     align-items: center;
   }
