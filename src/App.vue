@@ -99,6 +99,9 @@ export default {
       localStorage.setItem('pokemonCollection', 1)
     }
   },
+  mounted() {
+    this.showFullScreen()
+  },
 }
 </script>
 

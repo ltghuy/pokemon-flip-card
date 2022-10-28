@@ -22,6 +22,15 @@
         </button>
       </div>
     </div>
+    <div class="question" v-if="showModal" @click.self="closeModalBox">
+      <div class="box">
+        <h3 class="title">Do you want to play games in full screen?</h3>
+        <div class="choose">
+          <button class="hightlight" @click="showFullScreen">Yes</button>
+          <button @click="closeModalBox">No</button>
+        </div>
+      </div>
+    </div>
     <div class="dim"></div>
   </div>
 </template>
@@ -29,10 +38,33 @@
 <script>
 export default {
   emits: ['onStart'],
+  data() {
+    return {
+      showModal: false,
+    }
+  },
   methods: {
     onStart(totalColumn) {
       this.$emit('onStart', { totalColumn })
     },
+    showFullScreen() {
+      const ele = document.documentElement
+      if (ele.requestFullscreen) {
+        ele.requestFullscreen()
+      }
+      this.showModal = false
+    },
+    showModalBox() {
+      setTimeout(() => {
+        this.showModal = true
+      }, 800)
+    },
+    closeModalBox() {
+      this.showModal = false
+    },
+  },
+  mounted() {
+    this.showModalBox()
   },
 }
 </script>
@@ -90,6 +122,55 @@ export default {
       }
     }
   }
+  .question {
+    background-color: rgb(0 0 0 / 65%);
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .box {
+      animation: slideDown 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 0.5rem;
+      border-radius: 1rem;
+      background-color: var(--white);
+      box-shadow: 0 0 10px 5px #666;
+      padding: 5rem 1rem 10rem;
+      text-align: center;
+    }
+    .title {
+      color: var(--dark);
+      font-size: 1.5em;
+      display: block;
+    }
+    .choose {
+      padding-top: 5rem;
+      display: flex;
+      justify-content: center;
+      column-gap: 1rem;
+      button {
+        border-radius: 0.5rem;
+        border: 1px solid var(--dark);
+        background-color: var(--dark);
+        color: var(--light);
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 0.5rem 2.5rem;
+        outline: none;
+        transition: all 0.2s linear;
+        &.hightlight {
+          background-color: var(--yellow);
+          border-color: var(--yellow);
+        }
+        &:hover {
+          background-color: var(--white);
+          border-color: var(--dark);
+          color: var(--dark);
+        }
+      }
+    }
+  }
   .dim {
     background-color: rgb(0 0 0 / 65%);
     position: absolute;
@@ -111,6 +192,9 @@ export default {
         height: 8rem;
       }
     }
+    .question {
+      display: none;
+    }
   }
 
   @media screen and (max-width: $sm) {
@@ -124,6 +208,16 @@ export default {
       width: 7rem;
       height: 7rem;
       font-size: 1rem;
+    }
+  }
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
     }
   }
 }
