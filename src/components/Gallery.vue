@@ -57,7 +57,7 @@ export default {
     }
   },
   methods: {
-    getCollection() {
+    async getCollection() {
       return axios.get(
         `https://pokeapi.co/api/v2/pokemon?limit=${this.collection}`
       )
@@ -77,6 +77,12 @@ export default {
         )
         setTimeout(() => {
           this.pokemonCollection.push(poke)
+          // Fix poke list not increasing by id
+          this.pokemonCollection.sort(function (a, b) {
+            if (a.data.id > b.data.id) return 1
+            if (a.data.id < b.data.id) return -1
+            return 0
+          })
         }, 3000)
       })
     })
