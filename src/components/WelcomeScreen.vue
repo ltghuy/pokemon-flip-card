@@ -132,11 +132,10 @@ export default {
     justify-content: center;
     .box {
       animation: slideDown 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      padding: 0.5rem;
       border-radius: 1rem;
       background-color: var(--white);
       box-shadow: 0 0 10px 5px #666;
-      padding: 5rem 1rem 10rem;
+      padding: 5rem 1rem 8rem;
       text-align: center;
     }
     .title {
@@ -145,7 +144,7 @@ export default {
       display: block;
     }
     .choose {
-      padding-top: 5rem;
+      padding-top: 6rem;
       display: flex;
       justify-content: center;
       column-gap: 1rem;

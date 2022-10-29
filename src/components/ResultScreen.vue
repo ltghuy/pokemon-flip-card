@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   props: {
     timer: {
@@ -16,18 +17,35 @@ export default {
       default: 0,
     },
   },
-  data: function () {
+  data() {
     return {
       minutes: Math.floor(this.timer / 920 / 60),
       seconds: Math.floor((this.timer / 920) % 60),
+      timeout: null,
     }
   },
   methods: {
     handleRestart() {
-      const collection = localStorage.getItem('pokemonCollection')
-      localStorage.setItem('pokemonCollection', Number(collection) + 1)
       this.$emit('onRestart')
     },
+    showAlertUnLock() {
+      const collection = Number(localStorage.getItem('pokemonCollection'))
+      localStorage.setItem('pokemonCollection', collection + 1)
+      this.timeout = setTimeout(() => {
+        axios
+          .get(`https://pokeapi.co/api/v2/pokemon/${collection + 1}`)
+          .then((res) => {
+            const pokemon = String(res.data.name)
+            alert(`Unlock successfully: ${pokemon.toUpperCase()}`)
+          })
+      }, 1500)
+    },
+  },
+  mounted() {
+    this.showAlertUnLock()
+  },
+  beforeUnmount() {
+    clearTimeout(this.timeout)
   },
 }
 </script>
